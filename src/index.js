@@ -2,7 +2,6 @@ import { ApiService } from './api-service';
 import { refs } from './refs';
 import { LoadMoreBtn } from './loadMoreBtn';
 import { galleryMarkup } from './galleryMarkup';
-import jump from 'jump.js';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
@@ -20,7 +19,6 @@ const lightbox = new SimpleLightbox('.gallery a', {
 refs.form.addEventListener('submit', onSearch);
 loadMoreBtn.refs.button.addEventListener('click', () => {
   fetchImages();
-  jump(900);
 });
 
 function onSearch(e) {
