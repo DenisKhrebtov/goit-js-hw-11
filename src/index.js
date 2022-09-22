@@ -1,78 +1,50 @@
-import { ApiService } from './api-service';
-import { refs } from './refs';
-import { LoadMoreBtn } from './loadMoreBtn';
-import { galleryMarkup } from './galleryMarkup';
-import { Notify } from 'notiflix/build/notiflix-notify-aio';
-import SimpleLightbox from 'simplelightbox';
-import 'simplelightbox/dist/simple-lightbox.min.css';
+// import './sass/common.scss';
+import { galleryMarkup } from './js/galleryMarkup';
+import NewsApiService from './js/news-service';
+import LoadMoreBtn from './js/load-more-btn';
 
-const apiService = new ApiService();
+const refs = {
+  searchForm: document.querySelector('.search-form'),
+  // loadMoreBtn: document.querySelector('.load-more'),
+  galleryContainer: document.querySelector('.gallery'),
+};
+
 const loadMoreBtn = new LoadMoreBtn({
   selector: '.load-more',
   hidden: true,
 });
-const lightbox = new SimpleLightbox('.gallery a', {
-  captionsData: 'alt',
-  captionDelay: 250,
-});
+const newsApiService = new NewsApiService();
 
-refs.form.addEventListener('submit', onSearch);
-loadMoreBtn.refs.button.addEventListener('click', () => {
-  fetchImages();
-});
+console.log(loadMoreBtn);
+
+loadMoreBtn.show();
+// loadMoreBtn.disable();
+
+refs.searchForm.addEventListener('submit', onSearch);
+loadMoreBtn.refs.button.addEventListener('click', fetchArticles);
 
 function onSearch(e) {
   e.preventDefault();
 
-  apiService.query = e.target.elements.searchQuery.value.trim();
-  if (!apiService.query) {
-    return Notify.failure(
-      `Sorry, there are no images matching your search query. Please try again.`
-    );
-  }
+  newsApiService.query = e.currentTarget.elements.query.value;
 
+  if (newsApiService.query === '') {
+    return alert('bred');
+  }
   loadMoreBtn.show();
-  apiService.resetPage();
-  clearImageContainer();
-  fetchImages();
-  e.target.reset();
+  newsApiService.resetPage();
+  clearArticlesContainer();
+  fetchArticles();
 }
 
-function clearImageContainer() {
-  refs.container.innerHTML = '';
-}
-
-function fetchImages() {
-  loadMoreBtn.disabled();
-  apiService
-    .fetchImages()
-    .then(({ data }) => {
-      appendImagesMarkup(data);
-      lightbox.refresh();
-      notificationMode(data);
-    })
-    .catch(error => console.log('Error!'));
-}
-
-function appendImagesMarkup(data) {
-  refs.container.insertAdjacentHTML('beforeend', galleryMarkup(data));
-}
-
-function notificationMode(data) {
-  const countImages = data.hits.length;
-  const maxImages = data.totalHits;
-  if (refs.container.children.length > maxImages) {
-    loadMoreBtn.hide();
-    return Notify.info(
-      `We're sorry, but you've reached the end of search results.`
-    );
-  } else if (!data.total) {
-    loadMoreBtn.hide();
-    return Notify.failure(
-      `Sorry, there are no images matching your search query: ${apiService.query}. Please try again.`
-    );
-  } else {
+function fetchArticles() {
+  loadMoreBtn.disable();
+  newsApiService.fetchArticles().then(articles => {
+    appendArticlesMarkup(articles);
     loadMoreBtn.enable();
-    return Notify.success(`Hooray! We found ${countImages} images.`);
-  }
+  });
+}
+
+function clearArticlesContainer() {
+  refs.galleryContainer.innerHTML = '';
 }

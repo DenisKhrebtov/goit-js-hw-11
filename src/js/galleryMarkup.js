@@ -1,5 +1,5 @@
-function galleryMarkup({ hits }) {
-  return hits
+function galleryMarkup(arr) {
+  const markup = arr
     .map(
       ({
         largeImageURL,
@@ -10,8 +10,11 @@ function galleryMarkup({ hits }) {
         comments,
         downloads,
       }) => {
-        return `<li class="card-item"><div class="photo-card">
-    <a class="gallery-item" href="${largeImageURL}"><img class="gallery-image" src="${webformatURL}" alt="${tags}" loading="lazy"/></a>
+        return `<div class="photo-card">
+    <a class="gallery-item" href="${largeImageURL}">
+    <img class="gallery-image" src="${webformatURL}" alt="${tags}" loading="lazy" 
+    />
+    </a>
     <div class="info">
     <p class="info-item">
         <b>Likes: </b></br>${likes}
@@ -29,6 +32,6 @@ function galleryMarkup({ hits }) {
       }
     )
     .join('');
-}
 
-export { galleryMarkup };
+  refs.galleryContainer.insertAdjacentHTML('beforeend', markup);
+}
