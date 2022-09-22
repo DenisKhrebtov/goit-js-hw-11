@@ -15,8 +15,6 @@ const loadMoreBtn = new LoadMoreBtn({
 });
 const newsApiService = new NewsApiService();
 
-console.log(loadMoreBtn);
-
 loadMoreBtn.show();
 // loadMoreBtn.disable();
 
@@ -40,7 +38,7 @@ function onSearch(e) {
 function fetchArticles() {
   loadMoreBtn.disable();
   newsApiService.fetchArticles().then(articles => {
-    appendArticlesMarkup(articles);
+    galleryMarkup(response.hits);
     loadMoreBtn.enable();
   });
 }

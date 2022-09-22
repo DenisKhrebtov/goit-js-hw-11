@@ -1,4 +1,6 @@
-function galleryMarkup(arr) {
+import indexJS from '../index.js';
+
+function galleryMarkup(arr, gallery) {
   const markup = arr
     .map(
       ({

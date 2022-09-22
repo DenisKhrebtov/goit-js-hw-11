@@ -18,7 +18,7 @@ export default class LoadMoreBtn {
 
   disable() {
     this.refs.button.disabled = true;
-    this.refs.label.textContent = 'loading...';
+    this.refs.label.textContent = 'Loading...';
   }
 
   show() {
