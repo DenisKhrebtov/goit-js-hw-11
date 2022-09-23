@@ -1,5 +1,5 @@
 // import './sass/common.scss';
-import { galleryMarkup } from './js/galleryMarkup';
+import galleryMarkup from './js/galleryMarkup';
 import NewsApiService from './js/news-service';
 import LoadMoreBtn from './js/load-more-btn';
 
@@ -38,8 +38,8 @@ function onSearch(e) {
 function fetchArticles() {
   loadMoreBtn.disable();
   newsApiService.fetchArticles().then(articles => {
-    galleryMarkup(at);
     loadMoreBtn.enable();
+    galleryMarkup();
   });
 }
 

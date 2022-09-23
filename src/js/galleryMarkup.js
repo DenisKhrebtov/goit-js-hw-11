@@ -1,4 +1,4 @@
-function galleryMarkup(arr) {
+export default function galleryMarkup(arr) {
   const markup = arr
     .map(
       ({
@@ -32,9 +32,6 @@ function galleryMarkup(arr) {
       }
     )
     .join('');
-}
 
-export function addImagesMarkup(array) {
   refs.galleryContainer.insertAdjacentHTML('beforeend', markup);
-  console.log(refs.galleryContainer);
 }
