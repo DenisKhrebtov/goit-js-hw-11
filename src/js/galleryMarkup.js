@@ -1,4 +1,5 @@
-export default function galleryMarkup(arr) {
+import { galleryContainer } from './refs';
+export function galleryMarkup(arr) {
   const markup = arr
     .map(
       ({
@@ -12,7 +13,7 @@ export default function galleryMarkup(arr) {
       }) => {
         return `<div class="photo-card">
     <a class="gallery-item" href="${largeImageURL}">
-    <img class="gallery-image" src="${webformatURL}" alt="${tags}" loading="lazy" 
+    <img class="gallery-image" src="${webformatURL}" alt="${tags}" loading="lazy"
     />
     </a>
     <div class="info">
@@ -33,5 +34,5 @@ export default function galleryMarkup(arr) {
     )
     .join('');
 
-  refs.galleryContainer.insertAdjacentHTML('beforeend', markup);
+  galleryContainer.insertAdjacentHTML('beforeend', markup);
 }
