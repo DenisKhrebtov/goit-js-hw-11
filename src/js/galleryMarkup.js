@@ -1,6 +1,6 @@
 import indexJS from '../index.js';
 
-function galleryMarkup(arr, gallery) {
+function galleryMarkup(arr) {
   const markup = arr
     .map(
       ({

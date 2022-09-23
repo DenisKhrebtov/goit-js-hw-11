@@ -38,7 +38,7 @@ function onSearch(e) {
 function fetchArticles() {
   loadMoreBtn.disable();
   newsApiService.fetchArticles().then(articles => {
-    galleryMarkup(response.hits);
+    galleryMarkup(arr);
     loadMoreBtn.enable();
   });
 }
