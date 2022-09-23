@@ -24,6 +24,7 @@ async function onSearch(e) {
   e.preventDefault();
   newsApiService.resetPage();
   clearArticlesContainer();
+  loadMoreBtn.classList.add('is-hidden');
   newsApiService.searchQuery = e.currentTarget.elements.query.value.trim();
 
   if (!newsApiService.searchQuery) {
